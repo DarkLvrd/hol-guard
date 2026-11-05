@@ -95,6 +95,38 @@ Older releases are preserved in the [changelog archive](docs/changelog-archive.m
 * **native:** a package-intent parse now sends the caller's `PATH` to the resident. The resident is long-lived, so its own `PATH` is the one it was spawned with; a manager it cannot resolve (`npx` from a test or tool directory) made the TypeScript launch evidence incomplete and sent a contained typecheck back to review even though the caller resolved the manager fine.
 * **native:** a resident that answers a context-digest request with its own error envelope is now reported by that code — and recorded against the resilience breaker — instead of being flattened into `native_context_digest_result_invalid`. An envelope outside the contract keeps its code in the rejection reason, and a rejected result names the contract clause that rejected it with the offending keys, so a foreign frame, a stale frame and a truncated read are no longer indistinguishable.
 
+## [3.60.0](https://github.com/hashgraph-online/hol-guard/compare/v3.59.0...v3.60.0) (2026-11-05)
+
+
+### Features
+
+* **bench:** add a long-task token benchmark for CIGAR with a resumed Codex session ([#7258](https://github.com/hashgraph-online/hol-guard/issues/7258)) ([3a4cc3d](https://github.com/hashgraph-online/hol-guard/commit/3a4cc3d8f09309bfd676f704da5ea8430c2a9b2b))
+* **bench:** measure the paid cost of a long task on Codex and Claude Code ([#7272](https://github.com/hashgraph-online/hol-guard/issues/7272)) ([c88b21f](https://github.com/hashgraph-online/hol-guard/commit/c88b21f510fa7bf9d972bbd1674902f920971514))
+
+
+### Bug Fixes
+
+* **cigar:** give CIGAR install five minutes on slow computers ([#7251](https://github.com/hashgraph-online/hol-guard/issues/7251)) ([11bdb6a](https://github.com/hashgraph-online/hol-guard/commit/11bdb6a7c732f0e398ada29555febc6e71256953))
+* **cigar:** give Python setup five minutes on slow computers ([#7246](https://github.com/hashgraph-online/hol-guard/issues/7246)) ([16244df](https://github.com/hashgraph-online/hol-guard/commit/16244df02d1381f8f60d9f5920d0c3fe6b9cb84f))
+* **cigar:** give the first CIGAR handshake time for a cold start ([#7243](https://github.com/hashgraph-online/hol-guard/issues/7243)) ([8cdc8b8](https://github.com/hashgraph-online/hol-guard/commit/8cdc8b8dd062796dd886a414ededa5fe62d8a236))
+* **cigar:** keep one-click setup waiting while a busy Guard catches up ([#7240](https://github.com/hashgraph-online/hol-guard/issues/7240)) ([ccfb3b9](https://github.com/hashgraph-online/hol-guard/commit/ccfb3b9183224a438da094c814d6902f451f0850))
+* **cigar:** retry briefly held files during install cleanup ([#7253](https://github.com/hashgraph-online/hol-guard/issues/7253)) ([3d1d0b7](https://github.com/hashgraph-online/hol-guard/commit/3d1d0b75b29275fcd15a31ccd205d24a87dad090))
+* **cigar:** use plain words for update steps that are running or stopped ([#7242](https://github.com/hashgraph-online/hol-guard/issues/7242)) ([1217e80](https://github.com/hashgraph-online/hol-guard/commit/1217e8019ccd3f1ba6ae0e9d88f629ce89fd8f60))
+* **command:** keep a grouped find piped to xargs reviewable when it silences errors ([#7252](https://github.com/hashgraph-online/hol-guard/issues/7252)) ([627c0b5](https://github.com/hashgraph-online/hol-guard/commit/627c0b5f017719016cec95f80d201d80ec2af805))
+* **command:** let a binding to a plain parameter reach review ([#7249](https://github.com/hashgraph-online/hol-guard/issues/7249)) ([f0179e8](https://github.com/hashgraph-online/hol-guard/commit/f0179e8a24e9c827c3a508718d310a6c4ccfcec3))
+* **command:** read heredoc bodies inside substitutions as data ([#7248](https://github.com/hashgraph-online/hol-guard/issues/7248)) ([c68b23d](https://github.com/hashgraph-online/hol-guard/commit/c68b23d496b05b3fc40986a94a3ef16c17d5ea26))
+* **contained-pytest:** let read-only pytest bind a loopback socket ([#7259](https://github.com/hashgraph-online/hol-guard/issues/7259)) ([ffd44e4](https://github.com/hashgraph-online/hol-guard/commit/ffd44e4819702a6e3303a4607655a29acd48ab6d))
+* **contained:** carry an inert NODE_OPTIONS prefix on every contained Node run ([#7245](https://github.com/hashgraph-online/hol-guard/issues/7245)) ([c561db9](https://github.com/hashgraph-online/hol-guard/commit/c561db9b4fa5d96b18f1702baef846160d2cdf28))
+* **daemon:** answer a busy origin or session check with a retryable 503 ([#7254](https://github.com/hashgraph-online/hol-guard/issues/7254)) ([3092ded](https://github.com/hashgraph-online/hol-guard/commit/3092ded3ae2ac60b245882095477a718c23b3a6d))
+* **daemon:** defer trust state published before the socket binds ([#7255](https://github.com/hashgraph-online/hol-guard/issues/7255)) ([9f66755](https://github.com/hashgraph-online/hol-guard/commit/9f667550d969590bc69c2be2b846bcb2d9fb1777))
+* **daemon:** serve bundled dashboard files without the native origin check ([#7250](https://github.com/hashgraph-online/hol-guard/issues/7250)) ([928dc62](https://github.com/hashgraph-online/hol-guard/commit/928dc62be524453cb7d63b696aa07b57535dc017))
+* **gauntlet:** drop the blank-path search case Oh My Pi refuses to run ([#7237](https://github.com/hashgraph-online/hol-guard/issues/7237)) ([94ea6aa](https://github.com/hashgraph-online/hol-guard/commit/94ea6aa922c41e0eadf44642672ccdff2fe2105d))
+* **guard:** run an inline shell's test script in the contained sandbox ([#7244](https://github.com/hashgraph-online/hol-guard/issues/7244)) ([2545619](https://github.com/hashgraph-online/hol-guard/commit/2545619f77b7ef6f659c6b76c4167951e4b7fa52))
+* **hook:** review a Claude Code edit, not the whole file it replaced ([#7169](https://github.com/hashgraph-online/hol-guard/issues/7169)) ([e019fe5](https://github.com/hashgraph-online/hol-guard/commit/e019fe5c43f09d0538953b1cbace024168fdac18))
+* **posture:** show when Watch ends and stamp an explicit Watch that has no start time ([#7213](https://github.com/hashgraph-online/hol-guard/issues/7213)) ([145fe37](https://github.com/hashgraph-online/hol-guard/commit/145fe3797be28bba419b1f61c361a50d1a57dc98))
+* **pretool:** keep the review on an Oh My Pi read of an unresolved file URL ([#7239](https://github.com/hashgraph-online/hol-guard/issues/7239)) ([3636604](https://github.com/hashgraph-online/hol-guard/commit/363660411ad46bf9477e7fcb9a555feeb33f8bf2))
+* **release:** skip the plugin-scanner mirror upload when its PyPI project is full ([#7247](https://github.com/hashgraph-online/hol-guard/issues/7247)) ([750b7c4](https://github.com/hashgraph-online/hol-guard/commit/750b7c4cf468d77f27d4553b6531f1484c19e727))
+
 ## [3.59.0](https://github.com/hashgraph-online/hol-guard/compare/v3.58.0...v3.59.0) (2026-11-04)
 
 
